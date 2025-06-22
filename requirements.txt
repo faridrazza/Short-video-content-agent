@@ -1,0 +1,23 @@
+# Multi-Agent Video Generation System Requirements
+# Google Agent Development Kit and Core Dependencies
+google-adk>=1.0.0
+google-cloud-storage>=2.10.0
+google-cloud-texttospeech>=2.14.0
+google-generativeai>=0.3.0
+
+# Video Processing and Media Libraries
+moviepy>=1.0.3
+pillow>=10.0.0
+
+# Web Framework and API
+uvicorn[standard]>=0.23.0
+fastapi>=0.104.0
+python-multipart>=0.0.6
+
+# Utility Libraries
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# Development and Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0 

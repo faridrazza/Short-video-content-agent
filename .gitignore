@@ -1,0 +1,13 @@
+.env
+.env.local
+.env.example
+service_account.json
+service-account-key.json
+.DS_Store
+.vscode
+.idea
+.pytest_cache
+.ruff_cache
+.venv
+.env.local
+.env.example
