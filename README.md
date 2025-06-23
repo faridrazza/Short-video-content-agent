@@ -16,16 +16,13 @@
 
 This project demonstrates **autonomous multi-agent AI systems** built using Google's **Agent Development Kit (ADK)** to tackle the **Content Creation and Generation** challenge. Our system orchestrates **5 specialized AI agents** working collaboratively to transform a simple text topic into professional short-form video content.
 
-**🎪 Contest Challenge Addressed**: *"Build multi-agent systems that can autonomously generate different forms of content, such as marketing materials, reports, or code, by orchestrating agents with specialized content generation capabilities."*
-
-### **The Challenge We Solve**
 - **Problem**: Creating professional video content requires multiple specialized skills - scriptwriting, voice narration, visual design, and video production
 - **Solution**: Multi-agent system where each agent specializes in one aspect, working together seamlessly through **ADK orchestration**
 - **Innovation**: Parallel processing architecture where agents collaborate and hand off work intelligently using **ADK's SequentialAgent and ParallelAgent** patterns
 
 ### **Input → Output Transformation**
 ```
-📝 Text Input: "Artificial Intelligence"
+📝 Text Input: "Create a short video on intresting facts about mars"
           ↓
 🎬 Output: Professional 30-60 second video with AI narration and custom visuals
 ```
@@ -69,7 +66,7 @@ root_agent (SequentialAgent)
 - **Output**: Structured script optimized for 30-60 second videos
 
 #### 2. **Parallel Processing Stage** (ParallelAgent)
-- **ADK Type**: `ParallelAgent` - **Key Innovation**
+- **ADK Type**: `ParallelAgent` 
 - **Innovation**: Simultaneous execution for efficiency
 - **Sub-Agents**: Audio Narrator + Prompt Generator working in parallel
 - **Benefit**: 50% faster processing through concurrent operations
@@ -169,31 +166,6 @@ script_agent = LlmAgent(
 - **MoviePy + FFmpeg**: Video processing and assembly
 - **ADK Web Interface**: Built-in FastAPI web UI
 - **Docker**: Containerized deployment
-
----
-
-## 📊 **Contest Compliance Checklist**
-
-### ✅ **Core Requirements Met**
-- **✅ Built with ADK**: Complete multi-agent system using ADK Python
-- **✅ Multiple Agent Orchestration**: 5 specialized agents with parallel processing using `SequentialAgent` and `ParallelAgent`
-- **✅ Content Creation Category**: Autonomous video content generation matching contest challenge
-- **✅ Google Cloud Integration**: TTS, Storage, Gemini AI, Cloud Run
-- **✅ Original Project**: Built entirely during contest period (May-June 2025)
-- **✅ Functional System**: Successfully generates videos from text input
-
-### ✅ **Required Submission Components**
-- **✅ Hosted Project**: Deployed on Google Cloud Run with `adk web`
-- **✅ Public Repository**: [GitHub Repository](https://github.com/faridrazza/Short-video-content-agent.git)
-- **✅ Architecture Diagram**: Multi-agent system visualization (above)
-- **✅ Demo Video**: 3-minute demonstration (under 3 min limit)
-- **✅ Technical Documentation**: This comprehensive README
-- **✅ Text Description**: Features, functionality, technologies, findings detailed below
-
-### ✅ **Bonus Points Features**
-- **✅ Google Cloud Technology**: Cloud Run, TTS, Storage, Gemini AI integration
-- **✅ ADK Best Practices**: Proper agent hierarchy, tool integration, session management
-- **✅ Production Ready**: Docker deployment with health checks and scalability
 
 ---
 
@@ -316,22 +288,6 @@ External Services Integration:
 │ • Gemini AI     │  │                 │  │                 │
 └──────────────────┘  └─────────────────┘  └─────────────────┘
 ```
-
----
-
-## 🏆 **Innovation Highlights**
-
-### **Technical Innovation**
-- **Multi-Agent Orchestration**: First-class ADK implementation showcasing `SequentialAgent` + `ParallelAgent` patterns
-- **Parallel Processing**: Innovative use of ADK's `ParallelAgent` for simultaneous audio/visual processing
-- **Intelligent Handoffs**: Seamless data passing between specialized agents via ADK session state
-- **Error Recovery**: Robust fallback systems at each stage using ADK's built-in error handling
-
-### **Creative Innovation**
-- **Autonomous Content Creation**: End-to-end video generation from text using only AI agents
-- **Professional Quality**: Broadcast-ready output with proper timing and transitions
-- **Scalable Architecture**: Designed for enterprise-grade deployment using Google Cloud
-- **User Experience**: Simple text input, professional video output via ADK web interface
 
 ---
 
