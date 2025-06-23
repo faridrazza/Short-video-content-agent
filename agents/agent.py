@@ -45,7 +45,7 @@ prompt_agent = LlmAgent(
     model=settings.GEMINI_MODEL,
     instruction="""You are a visual storytelling expert and prompt engineer. Use the generate_prompts tool 
     to create detailed, cinematic image generation prompts from the script text in session state. 
-    Focus on creating 3-4 visually striking scenes that tell the story effectively.""",
+    Focus on creating 8 visually striking scenes that tell the story effectively.""",
     description="Creates detailed image generation prompts from scripts",
     tools=[prompt_tool],
     output_key="prompts_data"

@@ -17,7 +17,7 @@ def generate_prompts(script_url: str) -> Dict[str, Any]:
     """
     Generate detailed image generation prompts from a script.
     
-    Analyzes the script content and creates 3-4 detailed, cinematic prompts
+    Analyzes the script content and creates 8 detailed, cinematic prompts
     that capture key visual moments for video production.
     
     Args:
@@ -51,7 +51,7 @@ def generate_prompts(script_url: str) -> Dict[str, Any]:
             genai.configure(api_key=settings.GEMINI_API_KEY)
         
         # Create detailed prompt for image prompt generation
-        num_images = 4  # Fixed number of images for video
+        num_images = 8  # Fixed number of images for video
         prompt = f"""Create {num_images} simple, clear image generation prompts based on this video script:
 
 "{script_text}"
@@ -76,13 +76,13 @@ Generate exactly {num_images} simple prompts, one per line, numbered 1-{num_imag
         response = model.generate_content(prompt)
         prompts_text = response.text.strip()
         
-        # Parse prompts into individual items
+        # Parse prompts into individual items with improved logic
         prompts_lines = prompts_text.split('\n')
         prompts_list = []
         
         for line in prompts_lines:
             line = line.strip()
-            if line and not line.isspace():
+            if line and not line.isspace() and len(line) > 10:  # Must be substantial content
                 # Remove numbering if present (e.g., "1. " or "1)")
                 if line[0].isdigit():
                     # Find the first space or period after the number
@@ -90,12 +90,27 @@ Generate exactly {num_images} simple prompts, one per line, numbered 1-{num_imag
                         if char in ['.', ')', ' '] and i > 0:
                             line = line[i+1:].strip()
                             break
-                prompts_list.append(line)
+                
+                # Only add if it looks like a valid prompt (not just a number or short text)
+                if len(line) > 10:
+                    prompts_list.append(line)
         
-        # Ensure we have the right number of prompts
+        # Log the actual vs expected count for debugging
+        logger.info(f"Generated {len(prompts_list)} prompts, expected {num_images}")
+        
+        # If we have fewer than expected, try to generate additional ones
         if len(prompts_list) < num_images:
             logger.warning(f"Generated only {len(prompts_list)} prompts, expected {num_images}")
-        prompts_list = prompts_list[:num_images]  # Take only requested number
+            missing_count = num_images - len(prompts_list)
+            logger.info(f"Need {missing_count} more prompts")
+            
+            # Generate additional prompts to reach the target
+            for i in range(missing_count):
+                additional_prompt = f"Additional scene {len(prompts_list) + 1} based on the script themes and visual elements, cinematic composition, detailed background"
+                prompts_list.append(additional_prompt)
+        
+        # Take only the requested number
+        prompts_list = prompts_list[:num_images]
         
         # Generate unique filename
         prompts_filename = f"prompts_{uuid.uuid4().hex[:8]}.json"

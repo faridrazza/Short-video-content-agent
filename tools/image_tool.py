@@ -40,7 +40,10 @@ def generate_images(prompts_url: str) -> Dict[str, Any]:
             prompts_json = storage_manager.download_as_text(prompts_url)
             prompts_data = json.loads(prompts_json)
             prompts_list = prompts_data.get("prompts", [])
-            logger.info(f"Downloaded {len(prompts_list)} prompts")
+            logger.info(f"Downloaded {len(prompts_list)} prompts from GCS")
+            logger.info(f"Prompts data keys: {list(prompts_data.keys())}")
+            for i, prompt in enumerate(prompts_list):
+                logger.info(f"Prompt {i+1}: {prompt[:50]}...")
         except Exception as e:
             raise Exception(f"Failed to download prompts from {prompts_url}: {str(e)}")
         

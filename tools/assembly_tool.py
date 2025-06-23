@@ -140,6 +140,8 @@ def _download_assets(audio_url: str, images_data: str, script_url: Optional[str]
 
         # Extract images list from parsed data
         image_list = parsed_images_data.get("images", parsed_images_data if isinstance(parsed_images_data, list) else [])
+        logger.info(f"Assembly tool found {len(image_list)} images in the data")
+        logger.info(f"Images data structure: {type(parsed_images_data)}")
 
         # Download each image
         for i, image_info in enumerate(image_list):
