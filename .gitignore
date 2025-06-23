@@ -1,13 +1,34 @@
+# Environment files with secrets
 .env
 .env.local
-.env.example
+.env.production
+
+# Service account files
 service_account.json
 service-account-key.json
+service-account-key.json.json
+*.json
+
+# IDE and system files
 .DS_Store
 .vscode
 .idea
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 .pytest_cache
 .ruff_cache
+
+# Virtual environments
 .venv
-.env.local
-.env.example
+venv/
+env/
+
+# Logs
+*.log
+
+# Output files
+output/
