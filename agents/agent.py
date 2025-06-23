@@ -105,6 +105,8 @@ Example of how to call the tool:
 - And optionally script_data with script_url
 Then call: assemble_video(audio_url="gs://bucket/audio.mp3", images_data="{...json string...}", script_url="gs://bucket/script.txt")
 
+After calling the tool, provide the user with the PUBLIC URL (not the GCS URL) from the tool response. Look for "public_url" or "video_url" field in the response and present that as the final video link that users can click to watch the video.
+
 You MUST call the assemble_video tool to complete the video generation process.""",
     description="Combines audio, images, and text into final video production",
     tools=[assembly_tool],

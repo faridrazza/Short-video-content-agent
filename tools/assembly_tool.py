@@ -80,11 +80,13 @@ def assemble_video(audio_url: str, images_data: str, script_url: Optional[str] =
             if upload_result["status"] != "success":
                 raise Exception(f"Failed to upload video: {upload_result.get('error', 'Unknown error')}")
 
-            logger.info(f"Successfully assembled video: {len(video_data)} bytes")
+            logger.info(f"✅ Successfully assembled video: {len(video_data)} bytes")
+            logger.info(f"🎬 Public video URL: {upload_result['public_url']}")
 
             return {
-                "video_url": upload_result["gcs_url"],
+                "video_url": upload_result["public_url"],  # Use public URL as primary video URL
                 "public_url": upload_result["public_url"],
+                "gcs_url": upload_result["gcs_url"],  # Keep GCS URL for reference
                 "duration": video_params["duration"],
                 "resolution": video_params["resolution"],
                 "assets_used": {
@@ -96,7 +98,8 @@ def assemble_video(audio_url: str, images_data: str, script_url: Optional[str] =
                 },
                 "filename": video_filename,
                 "video_size_bytes": len(video_data),
-                "status": "success"
+                "status": "success",
+                "message": f"🎥 Video successfully created! Watch it at: {upload_result['public_url']}"
             }
 
     except Exception as e:

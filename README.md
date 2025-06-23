@@ -1,18 +1,18 @@
-# Multi-Agent Video Generation System 
-## 🏆 ADK Hackathon Submission - Content Creation and Generation
+# Multi-Agent Video Generation System
+## ADK Hackathon Submission - Content Creation and Generation
 
 [![ADK Hackathon](https://img.shields.io/badge/ADK-Hackathon-blue)](https://googlecloudmultiagents.devpost.com/)
 [![Google Cloud](https://img.shields.io/badge/Google-Cloud-yellow)](https://cloud.google.com/)
 [![Python](https://img.shields.io/badge/Python-3.12-green)](https://python.org/)
 [![Agent Development Kit](https://img.shields.io/badge/ADK-Multi--Agent-green)](https://google.github.io/adk-docs/)
 
-**🎯 Contest Category**: **Content Creation and Generation**  
-**📋 Hackathon**: [Agent Development Kit Hackathon with Google Cloud](https://googlecloudmultiagents.devpost.com/)  
-**⚡ Focus**: Multi-agent systems that autonomously generate professional video content
+**Contest Category**: **Content Creation and Generation**  
+**Hackathon**: [Agent Development Kit Hackathon with Google Cloud](https://googlecloudmultiagents.devpost.com/)  
+**Focus**: Multi-agent systems that autonomously generate professional video content
 
 ---
 
-## 🎯 **Project Overview**
+## **Project Overview**
 
 This project demonstrates **autonomous multi-agent AI systems** built using Google's **Agent Development Kit (ADK)** to tackle the **Content Creation and Generation** challenge. Our system orchestrates **5 specialized AI agents** working collaboratively to transform a simple text topic into professional short-form video content.
 
@@ -22,14 +22,14 @@ This project demonstrates **autonomous multi-agent AI systems** built using Goog
 
 ### **Input → Output Transformation**
 ```
-📝 Text Input: "Create a short video on intresting facts about mars"
+Text Input: "Create a short video on intresting facts about mars"
           ↓
-🎬 Output: Professional 30-60 second video with AI narration and custom visuals
+Output: Professional 30-60 second video with AI narration and custom visuals
 ```
 
 ---
 
-## 🤖 **Multi-Agent Architecture (ADK)**
+## **Multi-Agent Architecture (ADK)**
 
 Our system showcases **true multi-agent collaboration** using ADK's orchestration capabilities:
 
@@ -101,7 +101,7 @@ root_agent (SequentialAgent)
 
 ---
 
-## 🏗️ **ADK Technical Implementation**
+## **ADK Technical Implementation**
 
 ### **Core ADK Features Utilized**
 
@@ -119,7 +119,7 @@ root_agent = SequentialAgent(
 )
 ```
 
-#### **Parallel Agent Processing** ⚡
+#### **Parallel Agent Processing**
 ```python
 parallel_stage = ParallelAgent(
     name="ParallelProcessing", 
@@ -147,10 +147,10 @@ script_agent = LlmAgent(
 
 ---
 
-## 🚀 **Technology Stack**
+## **Technology Stack**
 
 ### **Google Cloud Services**
-- **Agent Development Kit (ADK)**: Multi-agent orchestration framework ⭐
+- **Agent Development Kit (ADK)**: Multi-agent orchestration framework
 - **Gemini 2.0 Flash**: Script generation and prompt creation
 - **Google Cloud Text-to-Speech**: Professional voice narration
 - **Google Cloud Storage**: Asset storage and management
@@ -169,7 +169,7 @@ script_agent = LlmAgent(
 
 ---
 
-## 🎬 **Demo & Results**
+## **Demo & Results**
 
 ### **Sample Generation Process**
 1. **Input**: `"The Future of Renewable Energy"`
@@ -188,7 +188,7 @@ script_agent = LlmAgent(
 
 ---
 
-## 🔍 **Technical Findings & Learnings**
+## **Technical Findings & Learnings**
 
 ### **ADK Framework Insights**
 - **Multi-Agent Orchestration**: ADK's `SequentialAgent` and `ParallelAgent` provide excellent abstractions for complex workflows
@@ -208,7 +208,7 @@ script_agent = LlmAgent(
 
 ---
 
-## 🚀 **Quick Start**
+## **Quick Start**
 
 ### **Prerequisites**
 - Python 3.12+
@@ -256,7 +256,7 @@ Access at `http://localhost:8080`
 
 ---
 
-## 📐 **Architecture Diagram**
+## **Architecture Diagram**
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -291,15 +291,15 @@ External Services Integration:
 
 ---
 
-## 📋 **Contest Submission Information**
+## **Contest Submission Information**
 
 ### **Required Submission Components**
-- **✅ Category**: Content Creation and Generation
-- **✅ GitHub Repository**: [https://github.com/faridrazza/Short-video-content-agent.git](https://github.com/faridrazza/Short-video-content-agent.git)
-- **✅ Hosted Project URL**: [Deploy with `adk web` or Google Cloud Run]
-- **✅ Architecture Diagram**: Included above
-- **✅ Demo Video**: [Link to be provided]
-- **✅ Documentation**: This comprehensive README
+- **Category**: Content Creation and Generation
+- **GitHub Repository**: [https://github.com/faridrazza/Short-video-content-agent.git](https://github.com/faridrazza/Short-video-content-agent.git)
+- **Hosted Project URL**: [Deploy with `adk web` or Google Cloud Run]
+- **Architecture Diagram**: Included above
+- **Demo Video**: [Watch Demo](https://youtu.be/7_ChdAaWtS8)
+- **Documentation**: This comprehensive README
 
 ### **Technologies Used**
 - **Primary Framework**: Google Agent Development Kit (ADK)
@@ -318,5 +318,4 @@ External Services Integration:
 
 ---
 
-**🚀 Built with ❤️ for the ADK Hackathon 2025**  
-*Showcasing the power of multi-agent AI collaboration through Google's Agent Development Kit* 
+**Built with ❤️ for the ADK Hackathon 2025** *Showcasing the power of multi-agent AI collaboration through Google's Agent Development Kit* 

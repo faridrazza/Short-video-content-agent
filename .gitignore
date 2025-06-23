@@ -3,11 +3,11 @@
 .env.local
 .env.production
 
-# Service account files
-service_account.json
-service-account-key.json
-service-account-key.json.json
-*.json
+# Service account files (temporarily commented for deployment)
+# service_account.json
+# service-account-key.json
+# service-account-key.json.json
+# *.json
 
 # IDE and system files
 .DS_Store
@@ -35,3 +35,6 @@ output/
 sessions_educationalai-446710.db
 /sessions_educationalai-446710.db
 
+
+service_account.json
+service-accounnt-key.json

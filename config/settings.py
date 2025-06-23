@@ -21,10 +21,10 @@ class Settings:
     GOOGLE_GENAI_USE_VERTEXAI: bool = os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "True").lower() == "true"
     
     # API Keys
-    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "") or os.getenv("GOOGLE_API_KEY", "")
     HF_API_TOKEN: str = os.getenv("HF_API_TOKEN", "")
     HUGGINGFACE_API_KEY: str = os.getenv("HF_API_TOKEN", "")  # Alias for compatibility
-    TOGETHER_API_KEY: str = os.getenv("TOGETHER_API", "")  # Together AI API key
+    TOGETHER_API_KEY: str = os.getenv("TOGETHER_API_KEY", "") or os.getenv("TOGETHER_API", "")  # Try both keys
     
     # Storage Configuration
     GCS_BUCKET_NAME: str = os.getenv("GCS_BUCKET_NAME", "")
@@ -37,7 +37,7 @@ class Settings:
     
     # Image Generation Settings
     DEFAULT_IMAGE_SIZE: tuple = (1024, 576)  # 16:9 aspect ratio for video
-    IMAGE_GENERATION_SERVICE: str = os.getenv("IMAGE_GENERATION_SERVICE", "placeholder")
+    IMAGE_GENERATION_SERVICE: str = os.getenv("IMAGE_GENERATION_SERVICE", "togetherai")
     LOCAL_SD_URL: str = os.getenv("LOCAL_SD_URL", "http://localhost:7860")
     
     # Development Settings
@@ -82,7 +82,8 @@ class Settings:
 # Global settings instance
 settings = Settings()
 
-# Validate settings on import
+# Only validate in production (not debug mode)
 missing_settings = settings.validate_required_settings()
 if missing_settings and not settings.DEBUG:
-    raise ValueError(f"Missing required environment variables: {', '.join(missing_settings)}") 
+    print(f"Warning: Missing required environment variables: {', '.join(missing_settings)}")
+    # Don't raise error, just warn 
