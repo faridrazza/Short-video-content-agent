@@ -4,18 +4,44 @@ Orchestrates the complete video generation pipeline using ADK agents.
 """
 
 import logging
-from google.adk.agents import LlmAgent, SequentialAgent, ParallelAgent
-from tools.script_tool import script_tool
-from tools.tts_tool import tts_tool
-from tools.prompt_tool import prompt_tool
-from tools.image_tool import image_tool
-from tools.assembly_tool import assembly_tool
-from config.settings import settings
+import sys
+import os
+
+# Add the parent directory to the Python path so we can import from tools and config
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+try:
+    from google.adk.agents import LlmAgent, SequentialAgent, ParallelAgent
+    from tools.script_tool import script_tool
+    from tools.tts_tool import tts_tool
+    from tools.prompt_tool import prompt_tool
+    from tools.image_tool import image_tool
+    from tools.assembly_tool import assembly_tool
+    from config.settings import settings
+except ImportError as e:
+    # Fallback for when config.settings is not available
+    print(f"Import error: {e}")
+    
+    # Create a basic settings object as fallback
+    class BasicSettings:
+        GEMINI_MODEL = "gemini-2.0-flash"
+        LOG_LEVEL = "INFO"
+        DEFAULT_VIDEO_RESOLUTION = (1024, 576)
+    
+    settings = BasicSettings()
+    
+    # Try importing just the ADK and tools
+    from google.adk.agents import LlmAgent, SequentialAgent, ParallelAgent
+    from tools.script_tool import script_tool
+    from tools.tts_tool import tts_tool
+    from tools.prompt_tool import prompt_tool
+    from tools.image_tool import image_tool
+    from tools.assembly_tool import assembly_tool
 
 logger = logging.getLogger(__name__)
 
 # Configure logging
-logging.basicConfig(level=getattr(logging, settings.LOG_LEVEL))
+logging.basicConfig(level=getattr(logging, settings.LOG_LEVEL, logging.INFO))
 
 # Define individual specialized LLM agents
 script_agent = LlmAgent(
@@ -65,15 +91,21 @@ image_agent = LlmAgent(
 assembly_agent = LlmAgent(
     name="VideoAssembler",
     model=settings.GEMINI_MODEL,
-    instruction="""You are a video production specialist. Use the assemble_video tool to combine all assets 
-    from the session state into a final video.
+    instruction="""You are a video production specialist. Your job is to combine all the assets created by previous agents into a final video.
 
-    Parameters to use:
-    - audio_url: Get from audio_data["audio_url"] in session state
-    - images_data: Pass the entire images_data JSON from session state as a string
-    - script_url: Get from script_data["script_url"] in session state (optional)
-    
-    Create professional videos with proper timing, transitions, and captions.""",
+IMPORTANT: You must use the assemble_video tool to create the final video. Here's how to extract the required parameters from the session state:
+
+1. audio_url: Look for audio_data in session state, then get the "audio_url" or "gcs_url" field
+2. images_data: Look for images_data in session state and pass the entire JSON object as a string
+3. script_url: Look for script_data in session state, then get the "script_url" field (optional)
+
+Example of how to call the tool:
+- If session state has audio_data with audio_url "gs://bucket/audio.mp3"
+- And images_data with a JSON object containing image information
+- And optionally script_data with script_url
+Then call: assemble_video(audio_url="gs://bucket/audio.mp3", images_data="{...json string...}", script_url="gs://bucket/script.txt")
+
+You MUST call the assemble_video tool to complete the video generation process.""",
     description="Combines audio, images, and text into final video production",
     tools=[assembly_tool],
     output_key="final_video"
@@ -116,7 +148,7 @@ def get_agent_config() -> dict:
         "estimated_time_minutes": "2-4",
         "supported_formats": ["MP4"],
         "max_video_duration": "60 seconds",
-        "resolution": f"{settings.DEFAULT_VIDEO_RESOLUTION[0]}x{settings.DEFAULT_VIDEO_RESOLUTION[1]}",
+        "resolution": f"{getattr(settings, 'DEFAULT_VIDEO_RESOLUTION', (1024, 576))[0]}x{getattr(settings, 'DEFAULT_VIDEO_RESOLUTION', (1024, 576))[1]}",
         "agents": {
             "script_generator": {
                 "name": script_agent.name,

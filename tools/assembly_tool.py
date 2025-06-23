@@ -38,7 +38,18 @@ def assemble_video(audio_url: str, images_data: str, script_url: Optional[str] =
             - error (str, optional): Error message if failed
     """
     try:
-        logger.info(f"Assembling video from audio: {audio_url}, images_data: {type(images_data)}")
+        logger.info(f"🎬 ASSEMBLY AGENT CALLED! Starting video assembly...")
+        logger.info(f"📁 Input parameters:")
+        logger.info(f"  - audio_url: {audio_url}")
+        logger.info(f"  - images_data type: {type(images_data)}")
+        logger.info(f"  - images_data preview: {str(images_data)[:200]}...")
+        logger.info(f"  - script_url: {script_url}")
+        
+        # Check storage manager
+        if storage_manager is None:
+            raise Exception("Storage manager not initialized - check GCS authentication")
+        
+        logger.info(f"✅ Storage manager available: {type(storage_manager)}")
 
         # Create temporary directory for processing
         with tempfile.TemporaryDirectory() as temp_dir:
