@@ -5,16 +5,22 @@ Sets environment variables before any other imports to ensure ADK agents have ac
 
 import os
 
-# Set environment variables directly for ADK agents
+# Load environment variables from .env files instead of hardcoding
+from dotenv import load_dotenv
+load_dotenv('env.local')
+load_dotenv()
+
+# Set environment variables from loaded values (no hardcoded secrets)
+import os
 os.environ.update({
-    'GOOGLE_CLOUD_PROJECT': 'educationalai-446710',
-    'GOOGLE_APPLICATION_CREDENTIALS': './service-account-key.json.json',
-    'GCS_BUCKET_NAME': 'educationalai-446710-video-gen',
-    'GEMINI_API_KEY': 'AIzaSyD8FLr6Tz3amiK10nL7ctXjOe5nI-i8Wa4',
-    'GOOGLE_API_KEY': 'AIzaSyD8FLr6Tz3amiK10nL7ctXjOe5nI-i8Wa4',
-    'GOOGLE_GENAI_USE_VERTEXAI': 'False',
-    'DEBUG': 'True',
-    'LOG_LEVEL': 'INFO'
+    'GOOGLE_CLOUD_PROJECT': os.getenv('GOOGLE_CLOUD_PROJECT', ''),
+    'GOOGLE_APPLICATION_CREDENTIALS': os.getenv('GOOGLE_APPLICATION_CREDENTIALS', ''),
+    'GCS_BUCKET_NAME': os.getenv('GCS_BUCKET_NAME', ''),
+    'GEMINI_API_KEY': os.getenv('GEMINI_API_KEY', ''),
+    'GOOGLE_API_KEY': os.getenv('GOOGLE_API_KEY', ''),
+    'GOOGLE_GENAI_USE_VERTEXAI': os.getenv('GOOGLE_GENAI_USE_VERTEXAI', 'False'),
+    'DEBUG': os.getenv('DEBUG', 'True'),
+    'LOG_LEVEL': os.getenv('LOG_LEVEL', 'INFO')
 })
 
 # Verify environment variables are set

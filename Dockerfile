@@ -44,9 +44,5 @@ USER app
 # Expose port
 EXPOSE $PORT
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:$PORT/health || exit 1
-
-# Start the application
-CMD ["python", "-m", "web_interface.main"] 
+# Start the application using ADK web interface
+CMD ["adk", "web", "--host", "0.0.0.0", "--port", "8080", "./agents"] 
