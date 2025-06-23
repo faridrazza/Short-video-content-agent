@@ -282,16 +282,10 @@ def _create_slideshow_video(assets: Dict[str, Any], params: Dict[str, Any], outp
     image_duration = params["image_duration"]
     transition_duration = params["transition_duration"]
 
-    # Animation types to cycle through
-    animations = ['zoom_in', 'zoom_out', 'pan_left', 'pan_right', 'pan_up', 'pan_down']
-
-    # Build filter for each image with dynamic animations
+    # Use zoom_in animation for ALL images (proven to work correctly)
     animated_clips = []
 
     for i in range(num_images):
-        # Choose animation type (cycle through different effects)
-        animation = animations[i % len(animations)]
-
         # Base scale and pad filter to fit resolution
         base_filter = (
             f"[{i+1}:v]scale={params['resolution'][0]*2}:{params['resolution'][1]*2}:"
@@ -299,49 +293,12 @@ def _create_slideshow_video(assets: Dict[str, Any], params: Dict[str, Any], outp
             f"{params['resolution'][1]*2}:(ow-iw)/2:(oh-ih)/2"
         )
 
-        # Add animation-specific effects
-        if animation == 'zoom_in':
-            # Start zoomed out, end zoomed in
-            animation_filter = (
-                f"{base_filter},zoompan=z='if(lte(zoom,1.0),1.5,max(1.00,zoom-0.0015))'"
-                f":d={int(image_duration * params['fps'])}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
-                f":s={params['resolution'][0]}x{params['resolution'][1]}"
-            )
-        elif animation == 'zoom_out':
-            # Start zoomed in, end zoomed out
-            animation_filter = (
-                f"{base_filter},zoompan=z='if(lte(zoom,1.0),1.0,max(1.00,zoom-0.0015))'"
-                f":d={int(image_duration * params['fps'])}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
-                f":s={params['resolution'][0]}x{params['resolution'][1]}"
-            )
-        elif animation == 'pan_left':
-            # Pan from right to left
-            animation_filter = (
-                f"{base_filter},zoompan=z='1.3'"
-                f":d={int(image_duration * params['fps'])}:x='iw-iw/zoom-{int(image_duration * params['fps'])}*3'"
-                f":y='ih/2-(ih/zoom/2)':s={params['resolution'][0]}x{params['resolution'][1]}"
-            )
-        elif animation == 'pan_right':
-            # Pan from left to right
-            animation_filter = (
-                f"{base_filter},zoompan=z='1.3'"
-                f":d={int(image_duration * params['fps'])}:x='{int(image_duration * params['fps'])}*3'"
-                f":y='ih/2-(ih/zoom/2)':s={params['resolution'][0]}x{params['resolution'][1]}"
-            )
-        elif animation == 'pan_up':
-            # Pan from bottom to top
-            animation_filter = (
-                f"{base_filter},zoompan=z='1.3'"
-                f":d={int(image_duration * params['fps'])}:x='iw/2-(iw/zoom/2)'"
-                f":y='ih-ih/zoom-{int(image_duration * params['fps'])}*2':s={params['resolution'][0]}x{params['resolution'][1]}"
-            )
-        else: # pan_down
-            # Pan from top to bottom
-            animation_filter = (
-                f"{base_filter},zoompan=z='1.3'"
-                f":d={int(image_duration * params['fps'])}:x='iw/2-(iw/zoom/2)'"
-                f":y='{int(image_duration * params['fps'])}*2':s={params['resolution'][0]}x{params['resolution'][1]}"
-            )
+        # Apply zoom_in animation to ALL images (starts zoomed out, ends zoomed in)
+        animation_filter = (
+            f"{base_filter},zoompan=z='if(lte(zoom,1.0),1.5,max(1.00,zoom-0.0015))'"
+            f":d={int(image_duration * params['fps'])}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
+            f":s={params['resolution'][0]}x{params['resolution'][1]}"
+        )
 
         # Add fade in/out effects for smooth transitions
         fade_filter = (
