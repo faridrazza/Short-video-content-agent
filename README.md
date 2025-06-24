@@ -12,6 +12,8 @@
 
 ---
 
+**TEST THE AGENT** ---->  [Click To Test](https://video-generation-agent-998005075083.us-central1.run.app/dev-ui/)
+
 ## **Project Overview**
 
 This project demonstrates **autonomous multi-agent AI systems** built using Google's **Agent Development Kit (ADK)** to tackle the **Content Creation and Generation** challenge. Our system orchestrates **5 specialized AI agents** working collaboratively to transform a simple text topic into professional short-form video content.
@@ -296,7 +298,7 @@ External Services Integration:
 ### **Required Submission Components**
 - **Category**: Content Creation and Generation
 - **GitHub Repository**: [https://github.com/faridrazza/Short-video-content-agent.git](https://github.com/faridrazza/Short-video-content-agent.git)
-- **Hosted Project URL**: [Deploy with `adk web` or Google Cloud Run]
+- **Hosted Project URL**: [click to test the applcation Deployed on Google Cloud Run](https://video-generation-agent-998005075083.us-central1.run.app/dev-ui/)
 - **Architecture Diagram**: Included above
 - **Demo Video**: [Watch Demo](https://youtu.be/7_ChdAaWtS8)
 - **Documentation**: This comprehensive README
